@@ -34,12 +34,12 @@ export abstract class BaseElement extends LitElement {
   /**
    * Return the foundation class for this component
    */
-  protected abstract readonly mdcFoundationClass: Constructor<MDCFoundation>;
+  protected abstract readonly mdcFoundationClass?: Constructor<MDCFoundation>;
 
   /**
    * An instance of the MDC Foundation class to attach to the root element
    */
-  protected abstract mdcFoundation: MDCFoundation;
+  protected abstract mdcFoundation?: MDCFoundation;
 
   /**
    * Create the adapter for the `mdcFoundation`.
@@ -61,8 +61,10 @@ export abstract class BaseElement extends LitElement {
     if (this.mdcFoundation !== undefined) {
       this.mdcFoundation.destroy();
     }
-    this.mdcFoundation = new this.mdcFoundationClass(this.createAdapter());
-    this.mdcFoundation.init();
+    if (this.mdcFoundationClass) {
+      this.mdcFoundation = new this.mdcFoundationClass(this.createAdapter());
+      this.mdcFoundation.init();
+    }
   }
 
   protected firstUpdated() {
