@@ -32,17 +32,6 @@ limitations under the License.
 
   // Use custom primary and accent classes because mdc-ripple-surface--primary
   // and --secondary override opacity
-  .primary {
-    --mdc-ripple-color: var(--mdc-theme-primary, #{theme-color.prop-value(primary)});
-  }
-
-  .accent {
-    --mdc-ripple-color: var(
-      --mdc-theme-secondary,
-      #{theme-color.prop-value(secondary)}
-    );
-  }
-
   .mdc-ripple-surface {
     @include _fullbleed();
     @include ripple.surface();
@@ -64,7 +53,7 @@ limitations under the License.
         opacity,
         custom-properties.create(
           --mdc-ripple-hover-opacity,
-          map.get(ripple.$dark-ink-opacities, hover),
+          map.get(ripple.$dark-ink-opacities, hover)
         )
       );
     }
@@ -74,16 +63,13 @@ limitations under the License.
         opacity,
         custom-properties.create(
           --mdc-ripple-focus-opacity,
-          map.get(ripple.$dark-ink-opacities, focus),
+          map.get(ripple.$dark-ink-opacities, focus)
         )
       );
     }
 
     @include ripple.states-base-color(
-      custom-properties.create(
-        --mdc-ripple-color,
-        #000,
-      )
+      custom-properties.create(--mdc-ripple-color, #000)
     );
 
     &.activated {
@@ -118,6 +104,24 @@ limitations under the License.
       );
     }
   }
+
+  .primary {
+    @include ripple.states-base-color(
+      custom-properties.create(
+        --mdc-ripple-color,
+        theme-color.prop-value(primary)
+      )
+    );
+  }
+
+  .accent {
+    @include ripple.states-base-color(
+      custom-properties.create(
+        --mdc-ripple-color,
+        theme-color.prop-value(secondary)
+      )
+    );
+  }
 }
 
 @mixin _fullbleed() {
@@ -136,10 +140,7 @@ limitations under the License.
   &::before {
     @include theme.property(
       opacity,
-      custom-properties.create(
-        --mdc-ripple-#{$state}-opacity,
-        $opacity,
-      )
+      custom-properties.create(--mdc-ripple-#{$state}-opacity, $opacity)
     );
   }
   // interaction opacity order must be: hover, focus, press

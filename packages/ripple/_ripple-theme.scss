@@ -20,7 +20,7 @@ limitations under the License.
 @use 'sass:map';
 
 $transparent-theme: (
-  state: #000,
+  state: --mdc-theme-primary,
   opacity: (
     hover: 0,
     focus: 0,

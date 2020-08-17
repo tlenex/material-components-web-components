@@ -5,6 +5,7 @@
 // stylelint-disable function-name-case
 
 @use 'sass:map';
+@use 'sass:selector';
 @use 'sass:string';
 @use '@material/checkbox/checkbox-custom-properties';
 @use '@material/checkbox/variables' as checkbox-variables;
@@ -14,6 +15,8 @@
 @use '@material/theme/theme';
 @use '@material/theme/theme-color';
 @use 'third_party/javascript/material_web_components/ripple/ripple-theme';
+@use '@material/theme/shadow-dom';
+
 
 $ripple-opacity: (
   hover: map.get(mdc-ripple-theme.$dark-ink-opacities, hover),
@@ -29,6 +32,8 @@ $light-theme: (
   outline-color: checkbox-variables.$border-color,
   outline-hover-color: null,
   ripple-color: theme-color.$on-surface,
+  ripple-checked-color: null,
+  ripple-checked-opacity: null,
   ripple-opacity: $ripple-opacity,
 );
 
@@ -67,6 +72,17 @@ $light-theme: (
       opacity: map.get($theme, ripple-opacity),
     )
   );
+  @include shadow-dom.host-aware(
+    selector.append(&, ':not([disabled])[checked]'),
+    selector.append(&, ':not([disabled])[indeterminate]')
+  ) {
+    @include ripple-theme.theme(
+      (
+        state: map.get($theme, ripple-checked-color),
+        opacity: map.get($theme, ripple-checked-opacity),
+      )
+    );
+  }
 }
 
 // TODO(b/162887560): Move this to MDC core style module.

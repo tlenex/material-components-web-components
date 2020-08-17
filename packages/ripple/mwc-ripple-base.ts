@@ -187,13 +187,13 @@ export class RippleBase extends BaseElement implements RippleAPI {
   protected render() {
     /** @classMap */
     const classes = {
+      'primary': this.primary,
+      'accent': this.accent,
       'mdc-ripple-upgraded--unbounded': this.unbounded,
       'mdc-ripple-upgraded--background-focused': this.bgFocused,
       'mdc-ripple-upgraded--foreground-activation': this.fgActivation,
       'mdc-ripple-upgraded--foreground-deactivation': this.fgDeactivation,
       'hover': this.hovering,
-      'primary': this.primary,
-      'accent': this.accent,
       'disabled': this.disabled,
       'activated': this.activated,
       'selected': this.selected,
